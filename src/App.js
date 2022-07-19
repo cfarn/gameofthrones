@@ -17,16 +17,36 @@ class App extends React.Component {
     console.log(response)
 
     this.setState({
-      characters: response.results
+      characters: response
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState)
+    console.log(this.state)
+  }
+
 	render() {
+    console.log(this.state)
 		return(
-			<>
-			  <h1>Game of thrones</h1>
-        <Character/>
-			</>
+			<div className='container'>
+			  <h1 className='text-center'>Game of thrones</h1>
+        <div className='row gap-3 justify-content-center'>
+          {
+            this.state.characters.map((character, index) => {
+              return(
+                <Character
+                  key = {index}
+                  name = {character.fullName}
+                  title = {character.title}
+                  image={character.imageUrl}
+                />
+              )
+            })
+          }
+        </div>
+        
+			</div>
 		)
 	}
 }
