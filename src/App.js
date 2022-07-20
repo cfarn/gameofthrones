@@ -1,6 +1,7 @@
 import React from 'react'
 import Character from './components/Character'
 import Favorite from './components/Favorite'
+import Continent from './components/Continent'
 
 class App extends React.Component {
   constructor () {
@@ -8,18 +9,23 @@ class App extends React.Component {
 
     this.state = {
       characters: [],
-      favorites: []
+      favorites: [],
+      continents: []
     }
   }
 
   async componentDidMount() {
     const request = await fetch("https://thronesapi.com/api/v2/Characters")
+    const request2 = await fetch("https://thronesapi.com/api/v2/Continents")
     // console.log(request)
     const response = await request.json()
+    const response2 = await request2.json()
     // console.log(response)
 
     this.setState({
-      characters: response
+      characters: response,
+      continents: response2
+
     })
   }
 
@@ -37,7 +43,7 @@ class App extends React.Component {
     this.setState({
       favorites: clonedFavorites
     })
-    console.log(character)
+    // console.log(character)
   }
 
 	render() {
@@ -45,7 +51,9 @@ class App extends React.Component {
 		return(
 			<div className='container'>
 			  <h1 className='text-center p-5'>Game of thrones</h1>
+        {/* liste des personnages */}
         <div className='row gap-3 gy-3 justify-content-center'>
+          <h2 className='text-center p-3'>Personnages</h2>
           {
             // ajout d'une clé index selon les recommandations
             this.state.characters.map((character, index) => {
@@ -63,9 +71,23 @@ class App extends React.Component {
             })
           }
         </div>
-        
+        {/* afficher les continents */}
         <div className='row gap-3 gy-3 justify-content-center'>
-          <h2 className='text-center p-5'>Favoris</h2>
+          <h2 className='text-center p-3'>Continents</h2>
+          {
+            this.state.continents.map((continent, index) => {
+              return(
+                <Continent
+                  key = {index}
+                  name = {continent.name}
+                />
+              )
+            })
+          }
+        </div>
+        {/* afficher les favoris */}
+        <div className='row gap-3 gy-3 justify-content-center'>
+          <h2 className='text-center p-3'>Favoris</h2>
           {
             this.state.favorites.map((favorite, index) => {
               return(
@@ -77,7 +99,6 @@ class App extends React.Component {
             })
           }
         </div>
-        
 			</div>
 		)
 	}

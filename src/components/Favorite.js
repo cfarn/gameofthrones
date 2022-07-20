@@ -2,11 +2,11 @@ import React from 'react'
 
 class Favorite extends React.Component {
     render() {
-        return(
-            <div className='card col-3'>
-                <h5 className="card-title">{this.props.name}</h5>
-            </div>
-        )
+      return(  
+         <div className='card col-3'>
+               <h5 className="card-title">{this.props.name}</h5>
+         </div>
+      )
     }
 }
 
