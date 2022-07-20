@@ -28,7 +28,15 @@ class App extends React.Component {
   }
 
   handleFavoriteClick(character) {
-    this.setState({favorites: character})
+    // this.setState({favorites: character})
+    // création d'un clone du tableau 
+    const clonedFavorites = [...this.state.favorites]
+    clonedFavorites.push(character)
+    // mise à jour du tableau cloné
+    this.setState({
+      favorites: clonedFavorites
+    })
+    console.log(character)
   }
 
 	render() {
@@ -38,14 +46,17 @@ class App extends React.Component {
 			  <h1 className='text-center'>Game of thrones</h1>
         <div className='row gap-3 justify-content-center'>
           {
-            // ajout d'une clé index selon les recommandations de la console
+            // ajout d'une clé index selon les recommandations
             this.state.characters.map((character, index) => {
               return(
                 <Character
                   key = {index}
                   name = {character.fullName}
                   title = {character.title}
-                  image={character.imageUrl}
+                  image = {character.imageUrl}
+                  favorite = {() => {
+                    this.handleFavoriteClick(character)}
+                  }
                 />
               )
             })
