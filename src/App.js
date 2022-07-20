@@ -6,15 +6,16 @@ class App extends React.Component {
     super ()
 
     this.state = {
-      characters: []
+      characters: [],
+      favorites: []
     }
   }
 
   async componentDidMount() {
     const request = await fetch("https://thronesapi.com/api/v2/Characters")
-    console.log(request)
+    // console.log(request)
     const response = await request.json()
-    console.log(response)
+    // console.log(response)
 
     this.setState({
       characters: response
@@ -26,6 +27,10 @@ class App extends React.Component {
     console.log(this.state)
   }
 
+  handleFavoriteClick(character) {
+    this.setState({favorites: character})
+  }
+
 	render() {
     console.log(this.state)
 		return(
@@ -33,6 +38,7 @@ class App extends React.Component {
 			  <h1 className='text-center'>Game of thrones</h1>
         <div className='row gap-3 justify-content-center'>
           {
+            // ajout d'une clé index selon les recommandations de la console
             this.state.characters.map((character, index) => {
               return(
                 <Character
